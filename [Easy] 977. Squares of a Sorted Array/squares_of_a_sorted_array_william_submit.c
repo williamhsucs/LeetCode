@@ -12,6 +12,7 @@
  * Note: The returned array must be malloced, assume caller calls free().
  */
 /**
+ * Explain:
  * 
  * nums = [-4,-1,0,3,10]   => Compare (-4) and 10
  *          V         V    => low pointer and high pointer
@@ -38,6 +39,9 @@
  * retAry -> O(n)
  * nums   -> O(n)
  * O(2n)  -> O(n)
+ */
+/**
+ * Readable & Scalable
  */
 int* sortedSquares(int* nums, int numsSize, int* returnSize) {
     int* retAry = calloc(numsSize, sizeof(int));
