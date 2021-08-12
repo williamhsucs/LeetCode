@@ -12,8 +12,6 @@
  * Note: The returned array must be malloced, assume caller calls free().
  */
 /**
- * Time complexity: O(n)
- * Space complexity: O(n)
  * 
  * nums = [-4,-1,0,3,10]   => Compare (-4) and 10
  *          V         V    => low pointer and high pointer
@@ -29,22 +27,33 @@
  * 
  * nums = [-4,-1,0,3,10]   => Move low pointer to next place.
  *             V   V          Compare (-1) and 3
+ * 
+ * *************************************************************
+ * Time complexity: O(n)
+ * Worst case:
+ * while -> O(n)
+ * *************************************************************
+ * Space complexity: O(n)
+ * Worst case:
+ * retAry -> O(n)
+ * nums   -> O(n)
+ * O(2n)  -> O(n)
  */
 int* sortedSquares(int* nums, int numsSize, int* returnSize) {
     int* retAry = calloc(numsSize, sizeof(int));
-    int poslow = 0;
+    int posLow = 0;
     int posHigh = numsSize - 1;
     int squareLow = 0;
     int squareHigh = 0;
     *returnSize = numsSize;
     
     while (numsSize-- > 0) {
-        squareLow = nums[poslow] * nums[poslow];
-        squareHigh = nums[posHigh]* nums[posHigh];
+        squareLow = nums[posLow] * nums[posLow];
+        squareHigh = nums[posHigh] * nums[posHigh];
         
         if (squareLow > squareHigh) {
             retAry[numsSize] = squareLow;
-            poslow++;
+            posLow++;
         } else {
             retAry[numsSize] = squareHigh;
             posHigh--;
