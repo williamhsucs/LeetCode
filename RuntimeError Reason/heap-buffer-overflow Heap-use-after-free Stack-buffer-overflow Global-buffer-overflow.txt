@@ -1,0 +1,206 @@
+/ ****************************************************************************************
+ * 訪問超出 Index 的陣列
+ ****************************************************************************************/
+C語言如果直接訪問超出 Index 的陣列，會產生錯誤訊息：
+int main(int argc, char **argv) {
+    int array  [100];
+    array[101] = -1;
+    int res = array[-1];  
+    return res;
+}
+
+Runtime Error:
+Line 3: Char 10: runtime error: index 101 out of bounds for type 'int [100]' (solution.c)
+
+如果使用 malloc 分配空間給 int 陣列，index 的溢位訪問是不會直接產生錯誤訊息的
+但是 LeetCode 使用了 AddressSanitizer 檢查是否存在非法訪問記憶體
+#include <stdlib.h>
+int main(int argc, char **argv) {
+    int *array = (int*)malloc(100 * sizeof(int));
+    array[0] = -1;
+    int res = array[-1];  // 非法訪問
+    return res;
+}
+
+LeetCode 產生錯誤訊息：
+=================================================================
+==30==ERROR: AddressSanitizer: heap-buffer-overflow on address 0x60300000000c at pc 0x000000401749 bp 0x7ffc91bd0570 sp 0x7ffc91bd0568
+WRITE of size 4 at 0x60300000000c thread T0
+    #3 0x7ff2c35d42e0 in __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x202e0)
+
+0x60300000000c is located 4 bytes to the left of 20-byte region [0x603000000010,0x603000000024)
+allocated by thread T0 here:
+    #0 0x7ff2c4a5e2b0 in malloc (/usr/local/lib64/libasan.so.5+0xe82b0)
+    #4 0x7ff2c35d42e0 in __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x202e0)
+
+Shadow bytes around the buggy address:
+  0x0c067fff7fb0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x0c067fff7fc0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x0c067fff7fd0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x0c067fff7fe0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x0c067fff7ff0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+=>0x0c067fff8000: fa[fa]00 00 04 fa fa fa fa fa fa fa fa fa fa fa
+  0x0c067fff8010: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c067fff8020: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c067fff8030: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c067fff8040: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c067fff8050: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+  Left alloca redzone:     ca
+  Right alloca redzone:    cb
+==30==ABORTING
+
+其實這是 AddressSanitizer 這個工具的記憶體損壞檢查產生的錯誤訊息
+可以在Linux上執行以下命令，檢查程式是否存在非法訪問記憶體：
+gcc -O -g -fsanitize=address  test.c
+./a.out
+
+Linux下執行後產生的錯誤訊息：
+allocated by thread T0 here:
+    #0 0x7f8eb21bfd28 in malloc (/usr/lib/x86_64-linux-gnu/libasan.so.3+0xc1d28)
+    #1 0x563aa79a68bd in main /root/test4.c:3
+
+SUMMARY: AddressSanitizer: heap-buffer-overflow /root/test4.c:5 in main
+Shadow bytes around the buggy address:
+  0x0c287fff9f70: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c287fff9f80: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c287fff9f90: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c287fff9fa0: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c287fff9fb0: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+=>0x0c287fff9fc0: fa fa fa fa fa fa fa[fa]00 00 00 00 00 00 00 00
+  0x0c287fff9fd0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x0c287fff9fe0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x0c287fff9ff0: 00 00 00 00 00 00 00 00 00 00 fa fa fa fa fa fa
+  0x0c287fffa000: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c287fffa010: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Heap right redzone:      fb
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack partial redzone:   f4
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+  Left alloca redzone:     ca
+  Right alloca redzone:    cb
+==7489==ABORTING
+
+
+
+
+/ ****************************************************************************************
+ * Heap釋放後才訪問
+ ****************************************************************************************/
+同時，AddressSanitizer 也可以檢查 Heap-use-after-free 產生的錯誤：
+int main(int argc, char **argv) {
+  int *array = new int[100];
+  delete [] array;
+  return array[argc];  // 非法訪問
+}
+
+LeetCode 產生錯誤訊息：
+=================================================================
+==31==ERROR: AddressSanitizer: heap-use-after-free on address 0x602000037c78 at pc 0x556c4b4e0604 bp 0x7ffe72dcb200 sp 0x7ffe72dcb1f0
+READ of size 8 at 0x602000037c78 thread T0
+    #4 0x7fc81e1f60b2 in __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x270b2)
+0x602000037c78 is located 8 bytes inside of 16-byte region [0x602000037c70,0x602000037c80)
+freed by thread T0 here:
+    #0 0x7fc81ee3b7cf in __interceptor_free (/lib/x86_64-linux-gnu/libasan.so.5+0x10d7cf)
+    #5 0x7fc81e1f60b2 in __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x270b2)
+previously allocated by thread T0 here:
+    #0 0x7fc81ee3bdc6 in calloc (/lib/x86_64-linux-gnu/libasan.so.5+0x10ddc6)
+    #5 0x7fc81e1f60b2 in __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x270b2)
+Shadow bytes around the buggy address:
+  0x0c047fffef30: fa fa 00 fa fa fa 03 fa fa fa 00 fa fa fa 03 fa
+  0x0c047fffef40: fa fa 00 fa fa fa 03 fa fa fa 00 fa fa fa 03 fa
+  0x0c047fffef50: fa fa 00 fa fa fa 03 fa fa fa 00 00 fa fa 03 fa
+  0x0c047fffef60: fa fa 03 fa fa fa 00 fa fa fa 03 fa fa fa 00 fa
+  0x0c047fffef70: fa fa 03 fa fa fa 00 04 fa fa 00 00 fa fa fd fa
+=>0x0c047fffef80: fa fa 05 fa fa fa fd fa fa fa 05 fa fa fa fd[fd]
+  0x0c047fffef90: fa fa fd fa fa fa 05 fa fa fa 00 00 fa fa fd fa
+  0x0c047fffefa0: fa fa 05 fa fa fa fd fa fa fa 05 fa fa fa fa fa
+  0x0c047fffefb0: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c047fffefc0: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c047fffefd0: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+  Left alloca redzone:     ca
+  Right alloca redzone:    cb
+  Shadow gap:              cc
+==31==ABORTING
+
+
+同樣可以在Linux上執行以下命令，檢查程式是否存在非法訪問：
+g++ -O -g -fsanitize=address heap-use-after-free.c
+./a.out
+
+
+/ ****************************************************************************************
+ * Stack 緩衝溢出
+ ****************************************************************************************/
+int main(int argc, char **argv) {
+  int stack_array[100];
+  stack_array[1] = 0;
+  return stack_array[argc + 100];  // 溢出
+}
+
+
+同樣可以在Linux上執行以下命令，做檢查:
+gcc -O -g -fsanitize=address  test.c
+./a.out
+
+
+/ ****************************************************************************************
+ * 全域緩衝溢出
+ ****************************************************************************************/
+int global_array[100] = {-1};
+int main(int argc, char **argv) {
+  return global_array[argc + 100];  // 溢出
+}
+
+
+同樣可以在Linux上執行以下命令，做檢查:
+gcc -O -g -fsanitize=address  test.c
+./a.out
