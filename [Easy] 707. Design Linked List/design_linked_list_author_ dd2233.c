@@ -1,3 +1,36 @@
+/**
+ * Problem
+ * https://leetcode.com/problems/design-linked-list/
+ * 
+ * Input:
+ * ["MyLinkedList", "addAtHead", "addAtTail", "addAtIndex", "get", "deleteAtIndex", "get"]
+ * [[], [1], [3], [1, 2], [1], [1], [1]]
+ * 
+ * Output:
+ * [null, null, null, null, 2, null, 3]
+ * 
+ * Explanation
+ * MyLinkedList myLinkedList = new MyLinkedList();
+ * myLinkedList.addAtHead(1);
+ * myLinkedList.addAtTail(3);
+ * myLinkedList.addAtIndex(1, 2);    // linked list becomes 1->2->3
+ * myLinkedList.get(1);              // return 2
+ * myLinkedList.deleteAtIndex(1);    // now the linked list is 1->3
+ * myLinkedList.get(1);              // return 3
+ * 
+ * *************************************************************
+ * Time complexity:
+ * prepend -> O(1)
+ * append -> O(1)
+ * search -> O(n)
+ * insert -> O(n)
+ * delete -> O(n)
+ * Worst case:
+ * prepend and append only need to use head or tail to add the nodes. O(1)
+ * insert and delete need to use search to find the index. O(n)
+ * *************************************************************
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 
