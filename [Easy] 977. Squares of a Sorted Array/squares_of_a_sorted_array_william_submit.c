@@ -7,6 +7,7 @@
  * 
  * Input:  [-7,-3,2,3,11]
  * Output: [4,9,9,49,121]
+ * 
  */
 /**
  * Note: The returned array must be malloced, assume caller calls free().
