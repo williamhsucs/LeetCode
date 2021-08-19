@@ -39,91 +39,53 @@ typedef struct {
   int* ary;
   int front;
   int rear;
+  int count;
   int size;
 } MyCircularQueue;
 
 MyCircularQueue* myCircularQueueCreate(int k) {
   MyCircularQueue* obj = (MyCircularQueue*)calloc(1, sizeof(MyCircularQueue));
   obj->ary = (int*)calloc(k, sizeof(int));
-  obj->front = -1;
+  obj->front = 0;
   obj->rear = -1;
+  obj->count = 0;
   obj->size = k;
-  printf("create\n");
   return obj;
 }
 
-int myCircularQueueFront(MyCircularQueue* obj) {
-  if (obj->front < 0) {
-    return -1;
-  }
-  return obj->ary[obj->front];
-  //return obj->front; //return front position
-}
-
-int myCircularQueueRear(MyCircularQueue* obj) {
-  if (obj->rear < 0) {
-    return -1;
-  }
-  return obj->ary[obj->rear];
-  //return obj->rear; // return rear position
-}
-
 bool myCircularQueueIsEmpty(MyCircularQueue* obj) {
-  if ((obj->front < 0) && (obj->rear < 0)) {
-    return true;
-  }
-  return false;
+  return obj->count == 0;
 }
 
 bool myCircularQueueIsFull(MyCircularQueue* obj) {
-  if (((obj->rear + 1) == obj->front) || ((obj->front < obj->rear) && (obj->front == 0) && (obj->rear + 1 == obj->size)) || (obj->size == 1)) {
+  return obj->count == obj->size;
+}
+
+int myCircularQueueFront(MyCircularQueue* obj) {
+  return myCircularQueueIsEmpty(obj) ? -1 : obj->ary[obj->front];
+}
+
+int myCircularQueueRear(MyCircularQueue* obj) {
+  return myCircularQueueIsEmpty(obj) ? -1 : obj->ary[obj->rear];
+}
+
+bool myCircularQueueEnQueue(MyCircularQueue* obj, int value) {
+  if (!myCircularQueueIsFull(obj)) {
+    obj->count++;
+    obj->rear = (obj->rear + 1) % obj->size;
+    obj->ary[obj->rear] = value;
     return true;
   }
   return false;
 }
 
-bool myCircularQueueEnQueue(MyCircularQueue* obj, int value) {
-  if (myCircularQueueIsEmpty(obj)) {
-    obj->front = 0;
-    obj->rear = 0;
-    obj->ary[0] = value;
-    printf("enQueue\n");
-    return true;
-  } else if (myCircularQueueIsFull(obj)) {
-    printf("can't enQueue\n");
-    return false;
-  } else {
-    if ((obj->rear + 1) == obj->size) {
-      obj->rear = 0;
-    } else {
-      obj->rear++;
-    }
-    obj->ary[obj->rear] = value;
-    printf("enQueue\n");
-    return true;
-  }
-}
-
 bool myCircularQueueDeQueue(MyCircularQueue* obj) {
-  if (myCircularQueueIsEmpty(obj)) {
-    printf("can't dnQueue\n");
-    return false;
-  } else if (obj->front == obj->rear) {
-    obj->ary[obj->front] = 0;
-    obj->front = -1;
-    obj->rear = -1;
-    printf("deQueue\n");
-    return true;
-  } else {
-    obj->ary[obj->front] = 0;
-    if ((obj->front + 1) == obj->size) {
-      obj->front = 0;
-    } else {
-      obj->front++;
-    }
-    printf("deQueue\n");
+  if (!myCircularQueueIsEmpty(obj)) {
+    obj->count--;
+    obj->front = (obj->front + 1) % obj->size;
     return true;
   }
+  return false;
 }
 
 void myCircularQueueFree(MyCircularQueue* obj) {
