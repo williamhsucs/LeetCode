@@ -1,37 +1,49 @@
 /**
+ * Data Structure Time Complexity
+ */
+
+/**
  * Array
  * 
  *  - Static Array
- *    --------------------------------------------------------------------------
- *    |  lookup  | O(1) |  Use ary[5] to get value directly                    |
- *    |-------------------------------------------------------------------------
- *    |  push    | O(1) |  We know how many items in the array.                |
- *    |-------------------------------------------------------------------------
- *    |          |      |  So we can push new item into last position directly.|
- *    |          |      |  e.g. ary[last++] = 1                                |
- *    |  insert  | O(n) |  If we have an array [1,2,3,4,5].                    |
- *    |          |      |  We want to insert the value at index 0.             |
- *    |          |      |  We need to move all items to next position.         |
- *    |          |      |     index [  0  |  1  |  2  |  3  |  4  |  5 ]       |
- *    |          |      |     value [  1  ,  2  ,  3  ,  4  ,  5  ,    ]       |
- *    |          |      |              |___↑ |___↑ |___↑ |___↑ |___↑           |
- *    |          |      |  After that, insert new value.                       |
- *    |          |      |  So, worst case is O(n)                              |
- *    |-------------------------------------------------------------------------
- *    |          |      |  Same as insert.                                     |
- *    |  delete  | O(n) |  After delete the value of index 1.                  |
- *    |          |      |  We need to move all items to previous position.     |
- *     -------------------------------------------------------------------------
+ *    --------------------------------------------------------------------------------
+ *    |  Action  | Worst Case |  Explaination / Example                              |
+ *    --------------------------------------------------------------------------------
+ *    |          |            |  index [  0  |  1  |  2  |  3  |  4  |  5 ]          |
+ *    |  lookup  |    O(1)    |  value [  1  ,  2  ,  3  ,  4  ,     ,    ]          |
+ *    |          |            |  Use ary[5] to get value directly                    |
+ *    |------------------------------------------------------------------------------|
+ *    |          |            |  We know how many items in the array.                |
+ *    |  push    |    O(1)    |  So we can push new item into last position directly.|
+ *    |          |            |  lastIndex => 4                                      |
+ *    |          |            |  e.g. ary[lastIndex] = 5                             |
+ *    |------------------------------------------------------------------------------|
+ *    |          |            |  If we have an array [1,2,3,4,5].                    |
+ *    |          |            |  We want to insert the value at index 0.             |
+ *    |          |            |  We need to move all items to next position.         |
+ *    |  insert  |    O(n)    |     index [  0  |  1  |  2  |  3  |  4  |  5 ]       |
+ *    |          |            |     value [  1  ,  2  ,  3  ,  4  ,  5  ,    ]       |
+ *    |          |            |              |___↑ |___↑ |___↑ |___↑ |___↑           |
+ *    |          |            |  After that, insert new value.                       |
+ *    |          |            |  So, worst case is O(n)                              |
+ *    |------------------------------------------------------------------------------|
+ *    |          |            |  Same as insert.                                     |
+ *    |  delete  |    O(n)    |  After delete the value of index 1.                  |
+ *    |          |            |  We need to move all items to previous position.     |
+ *    --------------------------------------------------------------------------------
  * 
  *  - Dynamic Array
- *    --------------------------------------------------------------------------
- *    |  lookup  | O(1) |  Same as static array.                               |
- *    |-------------------------------------------------------------------------
- *    |  append  | O(1) |  Same as static array.                               |
- *    |          | O(n) |  If the array is full and need to expend memory.     |
- *    |-------------------------------------------------------------------------
- *    |  insert  | O(n) |  Same as static array.                               |
- *    |-------------------------------------------------------------------------
- *    |  delete  | O(n) |  Same as static array.                               |
- *     -------------------------------------------------------------------------
+ *    --------------------------------------------------------------------------------
+ *    |  Action  | Worst Case |  Explaination / Example                              |
+ *    --------------------------------------------------------------------------------
+ *    |  lookup  |    O(1)    |  Same as static array.                               |
+ *    |------------------------------------------------------------------------------|
+ *    |          |    O(1)    |  Same as static array.                               |
+ *    |  append  |-------------------------------------------------------------------|
+ *    |          |    O(n)    |  If the array is full and need to expend memory.     |
+ *    |------------------------------------------------------------------------------|
+ *    |  insert  |    O(n)    |  Same as static array.                               |
+ *    |------------------------------------------------------------------------------|
+ *    |  delete  |    O(n)    |  Same as static array.                               |
+ *    --------------------------------------------------------------------------------
  */
