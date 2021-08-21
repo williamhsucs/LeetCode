@@ -175,7 +175,7 @@ class MyLinkedList {
  */
 
 
-
+/*
 class Main {
   public static void show(MyLinkedList linkedList) {
     for (int i = 0; i < linkedList.size; i++) {
@@ -209,3 +209,4 @@ class Main {
     }
   }
 }
+*/
