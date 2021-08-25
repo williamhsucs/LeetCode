@@ -17,7 +17,7 @@
  *   - There is no declaration of any new variables whose memory size depends on the input value.
  *   - The memory used is always the same.
  */
-class Solution {
+class MergeSortedArray {
   public void merge(int[] nums1, int m, int[] nums2, int n) {
     m--; // turn into index;
     n--; // turn into index;

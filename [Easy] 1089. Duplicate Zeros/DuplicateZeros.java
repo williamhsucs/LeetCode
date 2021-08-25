@@ -23,7 +23,7 @@
  * Time Complexity: O(n)
  * Space Complexity: O(n)
  */
-class Solution {
+class DuplicateZeros {
   public void duplicateZeros(int[] arr) {
     /**
      * Declare a new array
