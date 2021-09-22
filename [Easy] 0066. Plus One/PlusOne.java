@@ -68,20 +68,14 @@ class PlusOne {
     }
     
     if (digits[0] == 0) {
+      /**
+       * Space Complexity: O(n)
+       */
       int[] ret = new int[digits.length + 1];
       ret[0] = 1;
-      /**
-       * Time Complexity: O(n)
-       * Space Complexity: O(1)
-       */
-      for (int i = 1; i <= ret.length - 1; i++) {
-        ret[i] = digits[i - 1];
-      }
-      
       return ret;
     } else {
       /**
-       * Time Complexity: O(n)
        * Space Complexity: O(1)
        */
       return digits;
