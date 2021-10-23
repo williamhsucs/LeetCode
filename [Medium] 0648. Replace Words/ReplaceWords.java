@@ -1,3 +1,54 @@
+/**
+ * Problem
+ * https://leetcode.com/problems/replace-words/
+ * 
+ * ************************************************************* 
+ * 
+ * Input:
+ * dictionary = ["cat","bat","rat"]
+ * sentence = "the cattle was rattled by the battery"
+ * 
+ * Output:
+ * "the cat was rat by the bat"
+ * 
+ * ************************************************************* 
+ * 
+ * Input:
+ * dictionary = ["a","b","c"]
+ * sentence = "aadsfasf absbs bbab cadsfafs"
+ * 
+ * Output:
+ * "a a b c"
+ * 
+ * ************************************************************* 
+ * 
+ * Input:
+ * dictionary = ["a", "aa", "aaa", "aaaa"]
+ * sentence = "a aa a aaaa aaa aaa aaa aaaaaa bbb baba ababa"
+ * 
+ * Output:
+ * "a a a a a a a a bbb baba a"
+ * 
+ * ************************************************************* 
+ * 
+ * Input:
+ * dictionary = ["catt","cat","bat","rat"]
+ * sentence = "the cattle was rattled by the battery"
+ * 
+ * Output:
+ * "the cat was rat by the bat"
+ * 
+ * ************************************************************* 
+ * 
+ * Input:
+ * dictionary = ["ac","ab"]
+ * sentence = "it is abnormal that this solution is accepted"
+ * 
+ * Output:
+ * "it is ab that this solution is ac"
+ * 
+ * ************************************************************* 
+ */
 class ReplaceWords {
   class Trie {
     class TrieNode {
