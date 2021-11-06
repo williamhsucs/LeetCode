@@ -69,13 +69,13 @@ class WordDictionary {
    * Time Complexity: O(n)
    * Space Complexity: O(n)
    */
-  public boolean searching(String word, TrieNode node) {
+  public boolean searching(String word, TrieNode node, int wordIdx) {
     if (node == null) return false;
     /**
      * Time Complexity: O(n)
      *   - word length
      */
-    for (int i = 0; i < word.length(); i++) {
+    for (int i = wordIdx; i < word.length(); i++) {
       int idx = word.charAt(i) - 'a';
       // ('.' - 'a') = -51
       if (idx == (-51)) {
@@ -88,7 +88,7 @@ class WordDictionary {
            * Space Complexity: O(n)
            *   - stack: if search '.' for whole letters.
            */
-          if (searching(word.substring(i + 1, word.length()), node.children[j])) {
+          if (searching(word, node.children[j], i + 1)) {
             return true;
           }
         }
@@ -101,7 +101,7 @@ class WordDictionary {
   }
 
   public boolean search(String word) {
-    return searching(word, root);
+    return searching(word, root, 0);
   }
 }
 
