@@ -39,7 +39,7 @@
  *     }
  * }
  */
-class Preorder {
+class Inorder {
   /**
    * Time Complexity: O(n)
    *   - Nodes of tree.
