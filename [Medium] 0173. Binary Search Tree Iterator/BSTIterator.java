@@ -47,7 +47,7 @@ class BSTIterator {
   
   Queue<Integer> queue;
 
-  // Space Complexity: O(n + h)
+  // Space Complexity: O(n)
   public BSTIterator(TreeNode root) {
     // Space Complexity: O(n)
     queue = new LinkedList<>();
