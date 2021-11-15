@@ -33,8 +33,6 @@
 public class Solution {
   /**
    * Time Complexity: O(n)
-   *   - If no loop, at most run n nodes.
-   *   - If has loop, hare will catch turtle at the end of list.
    * Space Complexity: O(1)
    *   - Always constant memory
    */
