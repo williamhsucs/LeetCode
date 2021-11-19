@@ -38,7 +38,7 @@
  * Time Complexity: O(n)
  * Space Complexity: O(1)
  */
-class ReverseLinkedList {
+class ReverseLinkedList1 {
   public ListNode reverseList(ListNode head) {
     ListNode root = new ListNode(0, head);
     ListNode node = head;
@@ -53,5 +53,28 @@ class ReverseLinkedList {
     }
 
     return root.next;
+  }
+}
+
+
+
+/**
+ * Time Complexity: O(n)
+ * Space Complexity: O(1)
+ */
+class ReverseLinkedList2 {
+  public ListNode reverseList(ListNode head) {
+    ListNode pre = null;
+    ListNode cur = head;
+    ListNode next = null;
+
+    // Time Complexity: O(n)
+    while (cur != null) {
+      next = cur.next;
+      cur.next = pre;
+      pre = cur;
+      cur = next;
+    }
+    return pre;
   }
 }
