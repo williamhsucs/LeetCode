@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.Map;
+
 /**
  * Problem
  * https://leetcode.com/problems/intersection-of-two-arrays-ii/
@@ -17,52 +20,64 @@
  * Explanation: [4,9] is also accepted.
  * 
  * ************************************************************* 
- * Time Complexity: O(m + n)
- * Space Complexity: O(m + n)
+ * Time Complexity: O(n)
+ * Space Complexity: O(n)
  */
 class IntersectionTwoArraysII {
-  public int[] intersect(int[] nums1, int[] nums2) {
-    // Space Complexity: O(n)
-    Map<Integer, Integer> map1 = new HashMap<>();
-    // Space Complexity: O(m)
-    Map<Integer, Integer> map2 = new HashMap<>();
-    // Space Complexity: O(n|m)
+  /**
+   * Time Complexity: O(l)
+   * Space Complexity: O(s)
+   */
+  private int[] compare(int[] longer, int[] shorter) {
+    // Space Complexity: O(s)
+    Map<Integer, Integer> map = new HashMap<>();
+    // Space Complexity: O(s)
     ArrayList<Integer> list = new ArrayList<>();
+    int[] ret;
     
-    // Time Complexity: O(n)
-    for (int i : nums1) {
-      if (map1.containsKey(i)) {
-        map1.replace(i, map1.get(i) + 1);
+    // Time Complexity: O(s)
+    for (int i : shorter) {
+      /**
+       * HashMap Average Time Complexity:
+       *   - search O(1)
+       *   - insert O(1)
+       *   - delete O(1)
+       */
+      if (map.containsKey(i)) {
+        map.replace(i, map.get(i) + 1);
       } else {
-        map1.put(i, 1);
+        map.put(i, 1);
       }
     }
     
-    // Time Complexity: O(m)
-    for (int i : nums2) {
-      if (map2.containsKey(i)) {
-        map2.replace(i, map2.get(i) + 1);
-      } else {
-        map2.put(i, 1);
+    // Time Complexity: O(l)
+    for (int i : longer) {
+      if (map.containsKey(i)) {
+        map.replace(i, map.get(i) - 1);
+        if (map.get(i) == 0) {
+          map.remove(i);
+        }
+        // Time Complexity: O(1)
+        list.add(i);
       }
     }
-    
-    // Time Complexity: O(n)
-    for (int i : map1.keySet()) {
-      if (map2.containsKey(i)) {
-        int times = map1.get(i) < map2.get(i) ? map1.get(i) : map2.get(i);
-        while (times-- > 0) list.add(i);
-      }
-    }
-    
-    // Space Complexity: O(n|m)
-    int[] ret = new int[list.size()];
-    
-    // Time Complexity: O(n|)
+
+    // Space Complexity: O(s)
+    ret = new int[list.size()];
+    // Time Complexity: O(s)
     for (int i = 0; i < list.size(); i++) {
+      // Time Complexity: O(1)
       ret[i] = list.get(i);
     }
-    
+
     return ret;
+  }
+
+  public int[] intersect(int[] nums1, int[] nums2) {
+    if (nums1.length > nums2.length) {
+      return compare(nums1, nums2);
+    } else {
+      return compare(nums2, nums1);
+    }
   }
 }
