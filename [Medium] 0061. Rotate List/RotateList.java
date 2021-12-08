@@ -23,42 +23,25 @@ class Solution {
    */
   public ListNode rotateRight(ListNode head, int k) {
     if (head == null || head.next == null || k == 0) return head;
-    int size = 0;
-    ListNode node = head;
-    ListNode tail = null;
-    ListNode newHead = null;
-    
+
+    ListNode curr = head;
+    int len = 1;
+
     // Time O(n)
-    while (node != null) {
-      node = node.next;
-      size++;
+    while (curr.next != null) {
+      len++;
+      curr = curr.next;
     }
-    
-    k = size - (k % size) - 1;
-    
-    if (k == size) return head;
-    
-    node = head;
+
+    curr.next = head;
+    k = len - k % len;
+
     // Time O(n)
-    while (k-- > 0) {
-      node = node.next;
-    }
-    
-    tail = node;
-    if (node.next == null) {
-      newHead = head;
-    } else {
-      newHead = node.next;
-    }
-    
-    // Time O(n)
-    while (node.next != null) {
-      node = node.next;
-    }
-    
-    node.next = head;
-    tail.next = null;
-    
-    return newHead;
+    while (k-- > 0) curr = curr.next;
+
+    head = curr.next;
+    curr.next = null;
+
+    return head;
   }
 }
