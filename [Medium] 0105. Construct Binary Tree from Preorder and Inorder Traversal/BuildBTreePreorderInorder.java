@@ -49,3 +49,32 @@ class BuildBTreeInorderPostorder {
     return build(preorder, 0, preorder.length - 1, inorder, 0, inorder.length - 1);
   }
 }
+
+
+/**
+ * Wonderful Solution
+ */
+class BuildBTreeInorderPostorderWonderful {
+  private int inIdx = 0;
+  private int preIdx = 0;
+
+  /**
+   * Time O(n)
+   * Space O(n)
+   */
+  private TreeNode build(int[] preorder, int[] inorder, int pivot) {
+      if (preIdx >= preorder.length) return null;
+      if (inorder[inIdx] == pivot) {
+          inIdx++;
+          return null;
+      }
+      TreeNode root = new TreeNode(preorder[preIdx++]);
+      root.left = build(preorder, inorder, root.val);
+      root.right = build(preorder, inorder, pivot);
+      return root;        
+  }
+
+  public TreeNode buildTree(int[] preorder, int[] inorder) {
+      return build(preorder, inorder, Integer.MIN_VALUE);
+  }
+}
