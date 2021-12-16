@@ -50,3 +50,37 @@ class BuildBTreeInorderPostorder {
     return build(inorder, 0, inorder.length - 1, postorder, 0, postorder.length - 1);
   }
 }
+
+
+/**
+ * Wonderful Solution
+ */
+class BuildBTreePreorderInorderWonderful {
+  private int inIdx = 0;
+  private int postIdx = 0;
+
+  /**
+   * Time O(n)
+   * Space O(n)
+   */
+  private TreeNode build(int[] inorder, int[] postorder, int pivot) {
+    if (postIdx < 0) return null;
+    if (inorder[inIdx] == pivot) {
+      inIdx--;
+      return null;
+    }
+
+    TreeNode node = new TreeNode(postorder[postIdx--]);
+
+    node.right = build(inorder, postorder, node.val);
+    node.left = build(inorder, postorder, pivot);
+
+    return node;
+  }
+
+  public TreeNode buildTree(int[] inorder, int[] postorder) {
+    inIdx = inorder.length - 1;
+    postIdx = postorder.length - 1;
+    return build(inorder, postorder, Integer.MIN_VALUE);
+  }
+}
