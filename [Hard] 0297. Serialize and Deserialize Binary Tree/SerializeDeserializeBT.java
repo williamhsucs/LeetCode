@@ -9,7 +9,8 @@
  */
 public class Codec {
   
-  String s;
+  
+  int count = 0;
 
   /**
    * Time: O(n)
@@ -20,25 +21,25 @@ public class Codec {
     if (root == null) return "n";
     return String.valueOf(root.val) + "," + serialize(root.left) + "," + serialize(root.right);
   }
-
-  /**
-   * Time: O(n^2)
-   * Space: O(n)
-   */
+  
   // Decodes your encoded data to tree.
   public TreeNode deserialize(String data) {
-    s = data;
-    if (data.charAt(0) != 'n') {
-      // indexOf time is O(n), but according to constraints the max indexOf time is 5
-      int idx = s.indexOf(",");
-      // substring time is O(n)
-      TreeNode node = new TreeNode(Integer.valueOf(s.substring(0, idx)));
-      // recursive time is O(n)
-      node.left = deserialize(s.substring(idx + 1));
-      idx = s.indexOf(",");
-      node.right = deserialize(s.substring(idx + 1));
+    String s[] = data.split(",");
+    return exeDeserialize(s);
+  }
+
+  /**
+   * Time: O(n)
+   * Space: O(n)
+   */
+  public TreeNode exeDeserialize(String s[]) {
+    if (!s[count].equals("n")) {
+      TreeNode node = new TreeNode(Integer.valueOf(s[count++]));
+      node.left = exeDeserialize(s);
+      node.right = exeDeserialize(s);
       return node;
     } else {
+      count++;
       return null;
     }
   }
