@@ -1,60 +1,48 @@
 /**
- * Problem
- * https://leetcode.com/problems/two-sum/
- * 
- * ************************************************************* 
- * 
- * Input: nums = [2,7,11,15], target = 9
- * 
- * Output: [0,1]
- * 
- * Explanation:
- * Because nums[0] + nums[1] == 9, we return [0, 1].
- * 
- * ************************************************************* 
- * 
- * Input: nums = [3,2,4], target = 6
- * 
- * Output: [1,2]
- * 
- * ************************************************************* 
- * 
- * Input: nums = [3,3], target = 6
- * 
- * Output: [0,1]
- * 
- * ************************************************************* 
- * Time Complexity: O(n)
- * Space Complexity: O(1)
+
+    The conditions are:
+
+    - It would have exactly one solution.
+    - Shouldn’t use the same element twice.
+    - Array contains negative numbers.
+    - The integer array is not sorted.
+    - The given array will not be empty and must have at least two elements.
+    - Target can be negative.
+
+    Example 1: nums = [3, 2, 1, -5, 4], target = 6
+    Example 2: nums = [-1, 1], target = 0
+
+    Binary search has O(log n) time complexity and doesn’t use any extra memory. However, the given array is not sorted. It costs O(n log n) time complexity to sort the array first. So using binary search to solve this problem, the complexity would be:
+    Time O(n log n)
+    Space O(1)
+
+    HashMap has O(1) get, put time complexity but needs O(n) space complexity. In order to put all the array elements into the hash table, it needs to iterate over the entire array. And the time complexity will rise to O(n). So using HashMap to solve this problem, the complexity would be:
+    Time O(n)
+    Space O(n)
+
+    In conclusion, I would use binary search if memory is limited. In most cases, I prefer to use hashmap for more efficient time.
+
  */
+
 class TwoSum {
+  /**
+   * Time O(n)
+   * Space O(n)
+   */
   public int[] twoSum(int[] nums, int target) {
-    /**
-     * Space Complexity: O(1)
-     *   - O(n), For dynamic input, maybe more than initial space.
-     *   - O(1), For this problem, the number of numbers always smaller than 10^4
-     *           And depends on relationship between hash table and input values.
-     *           Generally O(1)
-     *           Collision O(n)
-     */
+    // Space O(n)
     Map<Integer, Integer> map = new HashMap<>();
-    int[] ret;
     /**
-     * Time complexity: O(n)
-     *   - O(n), for loop
-     *   - O(1), map.containsKey(K,V)
-     * Space complexity: O(1), always declare 2 space for primitive array
+     * Time O(n)
+     *  - for loop: O(n)
+     *  - HashMap APIs: O(1)
      */
     for (int i = 0; i < nums.length; i++) {
-      if (map.containsKey(target - nums[i])) {
-        ret = new int[2];
-        ret[0] = i;
-        ret[1] = map.get(target - nums[i]);
-        return ret;
-      } else {
-        map.put(nums[i], i);
+      if (map.containsKey(nums[i])) {
+        return new int[]{map.get(nums[i]), i};
       }
+      map.put(target - nums[i], i);
     }
-    return null;
+    return nums;
   }
 }
