@@ -30,7 +30,7 @@
  * Time Complexity: O(n)
  * Space Complexity: O(1)
  */
-public class Solution {
+public class LinkedListCycle {
   /**
    * Time Complexity: O(n)
    * Space Complexity: O(1)

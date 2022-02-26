@@ -2,7 +2,7 @@
  * Time O(n)
  * Space (sqrt(n))
  */
-public class Solution {
+public class PerfectSquares {
   public int numSquares(int n) {
     if (n == 1) return n;
     // Space O(sqrt(n))

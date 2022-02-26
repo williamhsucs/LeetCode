@@ -1,4 +1,4 @@
-class Solution {
+class CloneGraph {
   // Space O(n)
   private Map<Node, Node> visited;
 

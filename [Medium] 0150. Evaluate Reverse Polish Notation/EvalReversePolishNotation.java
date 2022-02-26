@@ -1,4 +1,4 @@
-public class Solution {
+public class EvalReversePolishNotation {
   /**
    * Time O(n)
    * Space O(n)

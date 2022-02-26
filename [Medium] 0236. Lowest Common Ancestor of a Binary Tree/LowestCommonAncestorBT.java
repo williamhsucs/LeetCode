@@ -7,7 +7,7 @@
  *     TreeNode(int x) { val = x; }
  * }
  */
-class Solution {
+class LowestCommonAncestorBT {
   /**
    * Time: O(n)
    * Space: O(h)

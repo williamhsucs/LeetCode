@@ -38,7 +38,7 @@
  * }
  */
 
-class Solution {
+class LowestCommonAncestor {
   /**
    * Time Complexity: O(h)
    *   - - Height of the tree

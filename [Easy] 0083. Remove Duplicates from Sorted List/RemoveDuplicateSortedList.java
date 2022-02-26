@@ -1,4 +1,4 @@
-class Solution {
+class RemoveDuplicateSortedList {
   /**
    * Time O(n)
    * Space O(1)

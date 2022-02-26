@@ -1,4 +1,4 @@
-public class Solution {
+public class ValidParentheses {
   /**
    * Time O(n)
    * Space O(n)

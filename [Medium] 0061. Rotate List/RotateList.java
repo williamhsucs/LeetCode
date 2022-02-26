@@ -16,7 +16,7 @@
  *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
  * }
  */
-class Solution {
+class RotateList {
   /**
    * Time O(n)
    * Space O(1)

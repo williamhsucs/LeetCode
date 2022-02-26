@@ -62,7 +62,7 @@ class DuplicateZeros {
  *   - We don't have create a new array.
  *     Whether input array size is big or small, the new variable we declared always same.
  */
-class Solution {
+class DuplicateZeros {
   public void duplicateZeros(int[] arr) {
     int arrIdx = arr.length - 1;
     int newAryIndex = 0;
@@ -188,7 +188,7 @@ class Solution {
  * Time Complexity: O(n)
  * Space Complexity: O(1)
  */
-class Solution {
+class DuplicateZeros2 {
   public void duplicateZeros(int[] arr) {
     int arrIdx = arr.length - 1;
     int newAryIndex = 0;

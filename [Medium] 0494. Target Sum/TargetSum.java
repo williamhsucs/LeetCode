@@ -1,4 +1,4 @@
-class Solution {
+class TargetSum {
   /**
    * Time O(2^n)
    *   - Process + and - operations.

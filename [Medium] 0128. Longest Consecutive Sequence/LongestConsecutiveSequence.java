@@ -1,4 +1,4 @@
-class Solution {
+class LongestConsecutiveSequence {
   /**
    * Time O(n)
    * Space O(n)

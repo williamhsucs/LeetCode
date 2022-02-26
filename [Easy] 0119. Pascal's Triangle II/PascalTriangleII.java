@@ -1,4 +1,4 @@
-class Solution {
+class PascalTriangleII {
   /**
    * Time O(mn)
    * Space O(rowIndex)

@@ -3,7 +3,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Set;
 
-public class Solution {
+public class OpenLock {
   // Use BFS
   public int openLock(String[] deadends, String target) {
     if (target.equals("0000")) return 0;

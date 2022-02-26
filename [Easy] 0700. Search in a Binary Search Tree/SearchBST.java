@@ -31,7 +31,7 @@
  *     }
  * }
  */
-class Solution {
+class SearchBST {
   /**
    * Recursion
    * Time Complexity: O(logn)

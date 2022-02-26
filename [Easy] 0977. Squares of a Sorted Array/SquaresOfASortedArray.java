@@ -44,7 +44,7 @@
 /**
  * Readable & Scalable
  */
-class Solution1 {
+class SquaresOfASortedArray1 {
     public int[] sortedSquares(int[] nums) {
         int numsLen = nums.length;
         int[] retAry = new int[numsLen];
@@ -65,7 +65,7 @@ class Solution1 {
     }
 }
 
-class Solution2 {
+class SquaresOfASortedArray2 {
   public int[] sortedSquares(int[] nums) {
     int[] ary = new int[nums.length];
     int low = 0, high = nums.length - 1;

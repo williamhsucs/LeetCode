@@ -1,4 +1,4 @@
-public class Solution {
+public class DailyTemp {
   /**
    * Time O(n)
    * Space O(n)

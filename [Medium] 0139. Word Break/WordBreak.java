@@ -1,4 +1,4 @@
-class Solution {
+class WordBreak {
   private Set<String> wrongRecord = new HashSet<>();
 
   public boolean wordBreak(String target, List<String> wordDict) {
